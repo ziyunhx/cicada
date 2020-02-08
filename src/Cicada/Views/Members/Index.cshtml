@@ -1,0 +1,108 @@
+﻿@using Cicada.ViewModels.Common
+
+@model PagedList<Cicada.EFCore.Shared.Models.Member>
+
+@{
+    ViewData["Title"] = "Members";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section heads
+{
+    <link href="~/lib/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Members</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    @await Html.PartialAsync("Common/Search", new Search() { Action = "Index", Controller = "Members", PageSize = Model.PageSize, AddEntityLabel = "Create Member", AddEntityUrl = "Create" })
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Avatar
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Gender
+                                    </th>
+                                    <th>
+                                        Mobile
+                                    </th>
+                                    <th>
+                                        Position
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        ExtendId
+                                    </th>
+                                    <th>
+                                        FromSource
+                                    </th>
+                                    <th>
+                                        Operate
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Data)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img src="@Html.DisplayFor(modelItem => item.Avatar)" width="30" height="30" />
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Gender)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Mobile)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Position)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Status)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ExtendId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FromSource)
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.MemberId">Edit</a>
+                                            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.MemberId">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div><div class="row">
+                    @await Html.PartialAsync("Common/Pager", new Pager { Action = "Index", PageSize = Model.PageSize, TotalCount = Model.TotalCount, EnableSearch = true, Search = ViewBag.Search })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

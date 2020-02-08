@@ -1,0 +1,76 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<div class="sidebar">
+    <ul class="navbar-nav sidebar-menu sidebar-dark accordion" id="accordionSidebar">
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="/">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>@Localizer["Dashboard"]</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Tasks -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTasks" aria-expanded="true" aria-controls="collapseTasks">
+                <i class="fa fa-fw fa-tasks"></i>
+                <span>@Localizer["Tasks"]</span>
+            </a>
+            <div id="collapseTasks" class="collapse" aria-labelledby="headingTasks" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/Tasks/Index">@Localizer["TaskIndex"]</a>
+                    <a class="collapse-item" href="/Tasks/Status">@Localizer["Status"]</a>
+                    <a class="collapse-item" href="/Tasks/Notications">@Localizer["Notications"]</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Configuration -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseConfiguration" aria-expanded="true" aria-controls="collapseConfiguration">
+                <i class="fa fa-fw fa-wrench"></i>
+                <span>@Localizer["Configuration"]</span>
+            </a>
+            <div id="collapseConfiguration" class="collapse" aria-labelledby="headingConfiguration" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/Settings">@Localizer["General"]</a>
+                    <a class="collapse-item" href="/Members">@Localizer["Members"]</a>
+                    <a class="collapse-item" href="/Parties">@Localizer["Parties"]</a>
+                    <a class="collapse-item" href="/Tags">@Localizer["Tags"]</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Users -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
+                <i class="fa fa-fw fa-user"></i>
+                <span>@Localizer["Users"]</span>
+            </a>
+            <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/Identity/Users">@Localizer["UserIndex"]</a>
+                    <a class="collapse-item" href="/Identity/Roles">@Localizer["Roles"]</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Document -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDocument" aria-expanded="true" aria-controls="collapseDocument">
+                <i class="fa fa-fw fa-book"></i>
+                <span>@Localizer["Document"]</span>
+            </a>
+            <div id="collapseDocument" class="collapse" aria-labelledby="headingDocument" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/Document/Article/about-cicada">@Localizer["About"]</a>
+                    <a class="collapse-item" href="/Document/Article/start-installing-cicada">@Localizer["Installing"]</a>
+                    <a class="collapse-item" href="/Document/Article/how-to-configuration">@Localizer["ConfigurationDoc"]</a>
+                    <a class="collapse-item" href="/Document/Article/develop-plugins-for-cicada">@Localizer["Development"]</a>
+                    <a class="collapse-item" href="/Document/Article/get-addons-from-market">@Localizer["Addons"]</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,173 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model Cicada.EFCore.Shared.Models.TaskInfo
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Task";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="client-form" asp-controller="Tasks" asp-action="Edit" Method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    @if (Model.TaskId != null && Model.TaskId != "")
+    {
+        <!--Button-->
+        <div class="form-group row">
+            <div class="col-md-12 col-m-b-10  col-m-t-10">
+                <a asp-action="Index" class="btn btn-outline-success">@Localizer["ButtonBackToList"]</a>
+                <a asp-action="TaskNotication" asp-route-id="@Model.TaskId" class="btn btn-outline-primary">@Localizer["ButtonManageTaskNotication"]</a>
+                <a asp-action="TaskProgram" asp-route-id="@Model.TaskId" class="btn btn-outline-primary">@Localizer["ButtonManageTaskProgram"]</a>
+                <a asp-action="TaskRunNow" asp-route-id="@Model.TaskId" class="btn btn-success">@Localizer["ButtonTaskRunNow"]</a>
+                <a asp-action="TaskDelete" asp-route-id="@Model.TaskId" class="btn btn-danger">@Localizer["ButtonDeleteTask"]</a>
+            </div>
+        </div>
+    }
+    <!--Hidden -->
+    <input type="hidden" asp-for="TaskId" />
+    <div class="card shadow mt-3">
+        <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">@Localizer["BasicInfo"]</h6>
+        </div>
+        <div class="card-body">
+            <!--Input - text -->
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskName")
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" required class="form-control" asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <!--Input - text -->
+            <div class="form-group row">
+                <label asp-for="Command" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskCommand")
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" required class="form-control" asp-for="Command">
+                    <span asp-validation-for="Command" class="text-danger"></span>
+                </div>
+            </div>
+            <!--Input - text -->
+            <div class="form-group row">
+                <label asp-for="Params" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskParams")
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="Params">
+                    <span asp-validation-for="Params" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Status" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskDisabled")
+                </label>
+                <div class="col-sm-9">
+                    <toggle-button>
+                        <input asp-for="Status" type="checkbox">
+                    </toggle-button>
+                </div>
+            </div>
+
+            <!--Input - text -->
+            <div class="form-group row">
+                <label asp-for="Retries" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskRetries")
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control" asp-for="Retries">
+                    <span asp-validation-for="Retries" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!--Input - text -->
+            <div class="form-group row">
+                <label asp-for="Timeout" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskTimeout")
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control" asp-for="Timeout">
+                    <span asp-validation-for="Timeout" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mt-3">
+        <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">@Localizer["ExecutionTime"]</h6>
+        </div>
+        <div class="card-body">
+            <!--Input - text -->
+            <div class="form-group row">
+                <label asp-for="Schedule" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskSchedule")
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" required class="form-control" asp-for="Schedule">
+                    <span asp-validation-for="Schedule" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="EndTime" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskEndTime")
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" required class="form-control" asp-for="EndTime">
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="WorkDays" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskWorkDays")
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" required class="form-control" asp-for="WorkDays">
+                    <span asp-validation-for="WorkDays" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="WorkTimes" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskWorkTimes")
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" required class="form-control" asp-for="WorkTimes">
+                    <span asp-validation-for="WorkTimes" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="SleepDays" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskSleepDays")
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" required class="form-control" asp-for="SleepDays">
+                    <span asp-validation-for="SleepDays" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="SleepTimes" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Task/Section/Label", "TaskSleepTimes")
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" required class="form-control" asp-for="SleepTimes">
+                    <span asp-validation-for="SleepTimes" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Button-->
+    <div class="form-group m-4 row">
+        <label class="col-sm-3 col-form-label">
+        </label>
+        <div class="col-sm-9">
+            <button type="submit" class="btn btn-primary">@Localizer["ButtonSaveTask"]</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

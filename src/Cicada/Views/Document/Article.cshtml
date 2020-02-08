@@ -1,0 +1,20 @@
+﻿@using Cicada.ViewModels.Document
+
+@model ArticleDto
+
+@{
+    ViewData["Title"] = "Document";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section heads
+{
+    <link href="~/css/github-markdown.css" rel="stylesheet">
+}
+<!-- Content Row -->
+<div class="row">
+    <article class="markdown-body">
+        @Html.Raw(Model.Html)
+    </article>
+</div>

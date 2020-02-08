@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@model Cicada.ViewModels.Common.Pager
+@{
+    int currentPage = 1;
+    Int32.TryParse(Context.Request.Query["page"], out currentPage);
+
+    @if (currentPage <= 0)
+    {
+        currentPage = 1;
+    }
+
+    int maxPage = (int)Math.Ceiling((double)Model.TotalCount / Model.PageSize);
+
+
+
+    <div class="col-sm-12 col-md-5">
+        <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">@string.Format(Localizer["PagerTitle"].Value, (currentPage - 1) * Model.PageSize + 1, Model.PageSize * currentPage, Model.TotalCount)</div>
+    </div>
+    <div class="col-sm-12 col-md-7">
+        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+            <ul class="pagination">
+                @if (currentPage > 1)
+                {
+                    <li class="paginate_button page-item previous" id="dataTable_previous">
+                        <a asp-action="@Model.Action" asp-route-page="1" asp-route-search="@Model.Search" asp-route-PageSize="@Model.PageSize" class="page-link">&lt;&lt;</a>
+                    </li>
+                }
+
+                @for (var i = 1; i <= maxPage; i++)
+                {
+                    if (currentPage == i)
+                    {
+                        <li class="paginate_button page-item active"><a class="page-link" asp-action="@Model.Action" asp-route-page="@i" asp-route-search="@Model.Search" asp-route-PageSize="@Model.PageSize">@i</a></li>
+                    }
+                    else if (currentPage >= (i - 5) && currentPage <= (i + 5))
+                    {
+                        <li class="paginate_button page-item"><a class="page-link" asp-action="@Model.Action" asp-route-page="@i" asp-route-search="@Model.Search" asp-route-PageSize="@Model.PageSize">@i</a></li>
+                    }
+                    else if (((currentPage - 5) < 0 && i <= (currentPage + 5 - (currentPage - 5))))
+                    {
+                        <li class="paginate_button page-item"><a class="page-link" asp-action="@Model.Action" asp-route-page="@i" asp-route-search="@Model.Search" asp-route-PageSize="@Model.PageSize">@i</a></li>
+                    }
+                    else if (((currentPage + 5) > maxPage && i >= (currentPage - 5 - ((currentPage + 5) - maxPage))))
+                    {
+                        <li class="paginate_button page-item"><a class="page-link" asp-action="@Model.Action" asp-route-page="@i" asp-route-search="@Model.Search" asp-route-PageSize="@Model.PageSize">@i</a></li>
+                    }
+                }
+
+                @if (currentPage < maxPage)
+                {
+                    <li class="paginate_button page-item next"><a class="page-link" asp-action="@Model.Action" asp-route-page="@maxPage" asp-route-search="@Model.Search" asp-route-PageSize="@Model.PageSize">&gt;&gt;</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+}
